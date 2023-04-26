@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Login Page" />
+    <title>Login Page</title>
+  </head>
+  <body>
+    <h1>Login Page</h1>
+    <form action="#" id="login">
+      <p>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter username"
+        />
+      </p>
+      <p>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter password"
+        />
+      </p>
+      <p>
+        <input type="submit" value="Submit" id="loginBtn" />
+        <input type="reset" value="Clear" />
+      </p>
+      <p>
+        Not yet Registered? <a href="./register.html">Click here to Register</a>
+      </p>
+    </form>
+
+    <script>
+      let formEle = document.querySelector("#login");
+      let loginBtn = document.querySelector("#loginBtn");
+      let password=document.querySelector("#password");
+      let username=document.querySelector("#username");
+      loginBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        let localUser = JSON.parse(localStorage.getItem(formEle[0].value));
+        let localUsername = JSON.parse(localStorage.getItem(formEle[1].value));
+        // console.log(localUsername)
+      //  console.log(Object.keys(localStorage).length);
+        for(let i=0;i<Object.keys(localStorage).length;i++){
+          if(Object.keys(localStorage)[i]==username.value){
+        if(localUser.password===password.value){
+          // console.log(localUser.password)
+            sessionStorage.setItem(localUser.id, JSON.stringify(localUser));
+          window.location.href = `./profile.html?id=${localUser.id}`;
+          alert("User Logged in successfully");
+          console.log("sucess")
+          break;
+        }
+        else {
+          // console.log("hello")
+         alert("Details not match with our records");
+         username.value=""
+         password.value=""
+         break;
+       }
+      
+      }
+      else{
+
+alert("Enter the correct credentials")
+username.value=""
+password.value=""
+break;
+
+}
+        }
+      });
+    </script>
+  </body>
+</html>
